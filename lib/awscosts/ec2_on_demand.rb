@@ -39,15 +39,9 @@ class AWSCosts::EC2OnDemand
           r['instanceTypes'].each do |instance_type|
             instance_type['sizes'].each do |instance_size|
               size = instance_size['size']
-              platform_cost = Hash.new({})
               instance_size['valueColumns'].each do |value|
                 # Don't return 0.0 for "N/A" since that is misleading
-                platform_cost[value['name']] = value['prices']['USD'] == 'N/A' ? nil : value['prices']['USD'].to_f
-              end
-
-              platform_cost.each_pair do |p,v|
-                platforms[p] = {} unless platforms.key?(p)
-                platforms[p][size] = v
+                platforms[size] = value['prices']['USD'] == 'N/A' ? nil : value['prices']['USD'].to_f
               end
             end
           end
@@ -56,9 +50,8 @@ class AWSCosts::EC2OnDemand
     end
 
     raise "No result for region #{region} while fetching EC2 OnDemand Pricing"            if result[region].nil?
-    raise "No result for #{type} in region #{region} while fetching EC2 OnDemand Pricing" if result[region][type].nil?
 
-    self.new(result[region][type])
+    self.new(result[region])
   end
 
 end
