@@ -4,7 +4,7 @@ require 'json'
 class AWSCosts::EBS
 
   TYPES = { 'Amazon EBS General Purpose (SSD) volumes' => :ssd_general,
-            'Amazon EBS Provisioned IOPS (SSD) volumes' => :ssd_iops,
+            'Amazon EBS Provisioned IOPS (SSD) volumes' => :ssd_provisioned_iops,
             'Amazon EBS Magnetic volumes' => :standard,
             'ebsSnapsToS3' => :snapshots_to_s3 }
 
