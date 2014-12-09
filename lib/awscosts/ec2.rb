@@ -18,7 +18,7 @@ class AWSCosts::EC2
 
   def on_demand(type)
     raise ArgumentError.new("Unknown platform: #{type}") if TYPES[type].nil?
-    AWSCosts::EC2OnDemand.fetch(TYPES[type], self.region.price_mapping)
+    AWSCosts::EC2OnDemand.fetch(TYPES[type], region.name)
   end
 
   def reserved(type, utilisation = :light)

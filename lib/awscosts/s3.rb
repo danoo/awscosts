@@ -11,20 +11,20 @@ class AWSCosts::S3
   end
 
   def storage
-    r = self.region.price_mapping
-    r = 'us-std' if r == 'us-east'
+    r = region.name
+    r = 'us-std' if r == 'us-east-1'
     AWSCosts::S3Storage.fetch(r)
   end
 
   def data_transfer
-    r = self.region.price_mapping
-    r = 'us-std' if r == 'us-east'
+    r = region.name
+    r = 'us-std' if r == 'us-east-1'
     AWSCosts::S3DataTransfer.fetch(r)
   end
 
   def requests
-    r = self.region.price_mapping
-    r = 'us-std' if r == 'us-east'
+    r = region.name
+    r = 'us-std' if r == 'us-east-1'
     AWSCosts::S3Requests.fetch(r)
   end
 end
